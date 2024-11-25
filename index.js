@@ -27,10 +27,8 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests from localhost and the production frontend URL
     const allowedOrigins = [
-      "http://localhost:5173", 
-      "http://localhost:4173", 
-      "https://raise-complaint-backend.vercel.app", // replace with your production URL
-      process.env.CORS_ORIGIN // if you set a custom env var for CORS origins
+      "http://localhost:5173", // replace with your production URL
+      process.env.CORS_ORIGIN 
     ];
 
     if (allowedOrigins.includes(origin) || !origin) { // `!origin` allows for non-browser clients like Postman
