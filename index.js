@@ -24,22 +24,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests from localhost and the production frontend URL
-    const allowedOrigins = [
-      "http://localhost:5173", // replace with your production URL
-      process.env.CORS_ORIGIN 
-    ];
-
-    if (allowedOrigins.includes(origin) || !origin) { // `!origin` allows for non-browser clients like Postman
-      callback(null, true); // Allow the request
-    } else {
-      callback(new Error("CORS not allowed by this server"));
-    }
-  },
-  credentials: true, // This is important if you're handling cookies or sessions
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // List of allowed HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'] // List of allowed headers
+  origin: "http://localhost:5173",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  
 }));
 
 
