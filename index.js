@@ -50,7 +50,7 @@ connectDB(MONGO_URI)
 
 
 
-app.get('/', (req, res) => {
-    res.send('I am making a server for application raise Complaint...!');
-})
+// app.get('/', (req, res) => {
+//     res.send('I am making a server for application raise Complaint...!');
+// })
 
