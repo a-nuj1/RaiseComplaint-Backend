@@ -24,14 +24,26 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
-  origin: [
-    "http://localhost:5173", 
-    "http://localhost:4173", 
-    "https://your-frontend.vercel.app",
-    process.env.CORS_ORIGIN
-  ],
-  credentials: true,
+  origin: (origin, callback) => {
+    // Allow requests from localhost and the production frontend URL
+    const allowedOrigins = [
+      "http://localhost:5173", 
+      "http://localhost:4173", 
+      "https://raise-complaint-backend.vercel.app", // replace with your production URL
+      process.env.CORS_ORIGIN // if you set a custom env var for CORS origins
+    ];
+
+    if (allowedOrigins.includes(origin) || !origin) { // `!origin` allows for non-browser clients like Postman
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error("CORS not allowed by this server"));
+    }
+  },
+  credentials: true, // This is important if you're handling cookies or sessions
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // List of allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'] // List of allowed headers
 }));
+
 
 app.use('/api', adminRoutes);
 app.use('/api', userRoutes);
