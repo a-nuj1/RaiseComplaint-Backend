@@ -35,6 +35,11 @@ app.use(cors({
 app.use('/api', adminRoutes);
 app.use('/api', userRoutes);
 
+app.get('/', (req, res) => {
+  res.send('Welcome ! Server is up and running.');
+});
+
+
 
 // connect to MongoDB & listen for requests only if the connection is successful
 connectDB(MONGO_URI)
@@ -49,8 +54,4 @@ connectDB(MONGO_URI)
 })
 
 
-
-// app.get('/', (req, res) => {
-//     res.send('I am making a server for application raise Complaint...!');
-// })
 
