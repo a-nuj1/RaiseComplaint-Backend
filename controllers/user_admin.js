@@ -17,7 +17,7 @@ export const createComplaint = async (req, res) => {
     });
 
     // Send email to admin
-    const adminMail = "anujgupta153203@gmail.com";
+    const adminMail = "anujgupta1532003@gmail.com";
     const subject = `New Complaint Registered: ${complaint.title}`;
     const html = `
       <p>A new complaint has been registered:</p>
