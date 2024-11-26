@@ -2,63 +2,59 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-
 import connectDB from './db/database.js';
 import adminRoutes from './routes/admin.routes.js';
 import userRoutes from './routes/user.routes.js';
 
-// Load environment variables from .env file
-dotenv.config({
-    path:'./.env',
-  });
-  
+dotenv.config({ path: './.env' });
 
-// create express app
 const app = express();
 const PORT = process.env.PORT || 8000;
-const MONGO_URI = process.env.MONGO_URI;
 
-
-// middlewares
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
+// CORS Middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173", 
-    "http://localhost:3000",
-    process.env.CLIENT_URL
-    ], 
-    credentials: true, 
-    methods: ["GET", "POST", "PUT", "DELETE"], 
-    allowedHeaders: ["Content-Type", "Authorization"], 
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "http://localhost:5173",
+        process.env.CLIENT_URL, // Frontend URL
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+// Handle Preflight Requests
+app.options('*', cors()); 
 
-
+// Routes
 app.use('/api', adminRoutes);
 app.use('/api', userRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Welcome ! Server is up and running.');
+  res.send('Welcome! Server is up and running.');
 });
 
-
-
-// connect to MongoDB & listen for requests only if the connection is successful
-connectDB(MONGO_URI)
-.then(() => {
-    app.listen(PORT, ()=>{
-        console.log(`Server is running on http://localhost:${PORT}`);
-    })
-})
-.catch((error) => {
-    console.log("MongoDB connection error: ", error);
+// Connect to DB and Start Server
+connectDB(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running at http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('MongoDB connection error:', error);
     process.exit(1);
-})
-
-
-
+  });
