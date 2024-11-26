@@ -11,7 +11,7 @@ app.post('/complaint', isAuthenticated, createComplaint)
 app.get('/complaint', getComplaints)
 
 // update a complaint
-app.put('/complaint/:id',isAuthenticated, updateComplaint)
+app.put('/complaint/:id', updateComplaint)
 
 // delete a complaint
 app.delete("/complaint/:id", deleteComplaint);
