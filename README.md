@@ -1,4 +1,7 @@
-# Complaint Management System
+# LIVE LINK
+https://raise-complaint-frontend.vercel.app/ 
+
+# Raise Complaints 
 
 A full-stack web application that allows users to register, log in, and manage complaints. This project includes user authentication, complaint submission, and complaint management with a MongoDB database.
 
@@ -7,7 +10,6 @@ A full-stack web application that allows users to register, log in, and manage c
 ## Table of Contents
 1. [Project Features](#project-features)
 2. [Technologies Used](#technologies-used)
-3. [Setup Instructions](#setup-instructions)
 4. [Using the Application](#using-the-application)
 5. [Email Functionality](#email-functionality)
 6. [MongoDB Setup](#mongodb-setup)
