@@ -22,7 +22,8 @@ app.use(
     origin: (origin, callback) => {
       const allowedOrigins = [
         "http://localhost:5173",
-        process.env.CLIENT_URL, // Frontend URL
+        "https://raise-complaint-frontend.vercel.app",
+        process.env.CLIENT_URL,
       ];
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
