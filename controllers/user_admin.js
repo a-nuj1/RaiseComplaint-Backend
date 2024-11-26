@@ -71,7 +71,6 @@ export const updateComplaint = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Find the complaint by ID and populate the user field
     const complaint = await Complaint.findById(id).populate("user");
     if (!complaint) {
       return res.status(404).json({ message: "Complaint not found" });
@@ -100,7 +99,7 @@ export const updateComplaint = async (req, res) => {
       <p>The status of your complaint titled "<strong>${updatedComplaint.title}</strong>" has been updated to "<strong>${updatedComplaint.status}</strong>".</p>
       <p>We appreciate your patience and cooperation.</p>
       <p>Regards,</p>
-      <p>Your Support Team</p>
+      <p>Anuj Gupta</p>
     `;
 
     await sendEmail(userMail, subject, html);

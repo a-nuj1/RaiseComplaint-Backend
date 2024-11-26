@@ -53,15 +53,15 @@ export const login = async (req, res) => {
     res
       .status(200)
       .cookie("token", token, {
-        httpOnly: true, // Prevent client-side access to the cookie
-        secure: process.env.NODE_ENV === "production", // Use HTTPS in production
-        sameSite: "strict", // Prevent CSRF attacks
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === "production", 
+        sameSite: "strict", 
         maxAge: 60 * 60 * 1000, // 1 hour
       })
       .json({
         success: true,
         message: "Login successful",
-        token, // Optional: Also send the token in the response body
+        // token, 
         user: { id: user._id, name: user.name, email: user.email },
       });
   } catch (error) {
